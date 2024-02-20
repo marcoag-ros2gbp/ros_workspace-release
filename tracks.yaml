@@ -293,7 +293,7 @@ tracks:
     last_version: 1.0.3
     name: upstream
     patches: null
-    release_inc: '3'
+    release_inc: '4'
     release_repo_url: git@github.com:ros2-gbp/ros_workspace-release
     release_tag: latest
     ros_distro: rolling
