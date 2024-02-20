@@ -1,0 +1,145 @@
+ros-rolling-ros-workspace (1.0.3-4noble) noble; urgency=high
+
+  * Remove path hook generation from ament_environment (#28 <https://github.com/ros2/ros_workspace/issues/28>)
+  * [latest] Update maintainers - 2022-11-07 (#26 <https://github.com/ros2/ros_workspace/issues/26>)
+  * Contributors: Audrow Nash, Michael Carroll
+
+ -- Michael Jeronimo <michael.jeronimo@openrobotics.org>  Wed, 15 Feb 2023 00:00:00 -0000
+
+ros-rolling-ros-workspace (1.0.2-4noble) noble; urgency=high
+
+  * Use GNUInstallDirs to determine multiarch library dir (#20 <https://github.com/ros2/ros_workspace/issues/20>)
+  * Contributors: Scott K Logan
+
+ -- Michael Jeronimo <michael.jeronimo@openrobotics.org>  Thu, 04 Feb 2021 00:00:00 -0000
+
+ros-rolling-ros-workspace (1.0.1-4noble) noble; urgency=high
+
+  * set flag to skip parent_prefix_path (#19 <https://github.com/ros2/ros_workspace/issues/19>)
+  * Contributors: Dirk Thomas
+
+ -- Michael Jeronimo <michael.jeronimo@openrobotics.org>  Fri, 05 Jun 2020 00:00:00 -0000
+
+ros-rolling-ros-workspace (1.0.0-4noble) noble; urgency=high
+
+  * Extend library path to have multiarch directory (#18 <https://github.com/ros2/ros_workspace/issues/18>)
+  * Enable Windows build. (#17 <https://github.com/ros2/ros_workspace/issues/17>)
+  * Contributors: Jacob Perron, Sean Yen
+
+ -- Michael Jeronimo <michael.jeronimo@openrobotics.org>  Tue, 12 May 2020 00:00:00 -0000
+
+ros-rolling-ros-workspace (0.8.0-4noble) noble; urgency=high
+
+  * Added .dsv file generation for PYTHONPATH. (#16 <https://github.com/ros2/ros_workspace/issues/16>)
+  * Added support for ament_package installed with setup.py develop. (#15 <https://github.com/ros2/ros_workspace/issues/15>)
+  * Contributors: Dirk Thomas
+
+ -- Michael Jeronimo <michael.jeronimo@openrobotics.org>  Fri, 11 Oct 2019 00:00:00 -0000
+
+ros-rolling-ros-workspace (0.7.1-4noble) noble; urgency=high
+
+  * Reverted adding the COLCON_PREFIX_PATH env var. (#14 <https://github.com/ros2/ros_workspace/issues/14>)
+  * Contributors: Dirk Thomas
+
+ -- Michael Jeronimo <michael.jeronimo@openrobotics.org>  Mon, 29 Apr 2019 00:00:00 -0000
+
+ros-rolling-ros-workspace (0.7.0-4noble) noble; urgency=high
+
+  * Add LICENSE file containing full Apache 2.0 license text. (#13 <https://github.com/ros2/ros_workspace/issues/13>)
+  * Contributors: Steven! Ragnarök
+
+ -- Michael Jeronimo <michael.jeronimo@openrobotics.org>  Mon, 08 Apr 2019 00:00:00 -0000
+
+ros-rolling-ros-workspace (0.6.1-4noble) noble; urgency=high
+
+  * Add COLCON_PREFIX_PATH env hook. (#11 <https://github.com/ros2/ros_workspace/issues/11>)
+  * Contributors: Dirk Thomas
+
+ -- Michael Jeronimo <michael.jeronimo@openrobotics.org>  Thu, 07 Feb 2019 00:00:00 -0000
+
+ros-rolling-ros-workspace (0.6.0-4noble) noble; urgency=high
+
+  * Set default environment hooks for PATH, PYTHONPATH, and LD_LIBRARY_PATH. (#10 <https://github.com/ros2/ros_workspace/issues/10>)
+    * Drop setting multiarch library by default.
+    Installing into a multiarch dir when specifying a non-standard Debian
+    package root appears to have been a bug that was fixed in the Bionic
+    toolchain.
+    Packages that used to require special handling because their libraries
+    were placed in, for example, /opt/ros/bouncy/lib/x86_64-linux-gnu/ now
+    place their libraries directly in /opt/ros/bouncy/lib.
+    Since this is no longer the default, we should not set any default
+    environment hooks using that directory.
+    Packages which want to explicitly make use of a multiarch library path
+    should set their own environment hooks.
+    * Add default environment hook for the binary path.
+  * set language to NONE as this doesnt compile any code (#9 <https://github.com/ros2/ros_workspace/issues/9>)
+  * Contributors: Mikael Arguedas, Steven! Ragnarök
+
+ -- Michael Jeronimo <michael.jeronimo@openrobotics.org>  Wed, 14 Nov 2018 00:00:00 -0000
+
+ros-rolling-ros-workspace (0.5.1-4noble) noble; urgency=high
+
+  * Merge pull request #6 <https://github.com/ros2/ros_workspace/issues/6> from ros2/add-default-load-path-unconditionially
+    Add default load path unconditionially
+  * Add note about default environment hooks and link to further issue.
+  * Add /opt/ros/rosdistro/lib to default library path.
+    Previously this library path was added to LD_LIBRARY_PATH by environment
+    hooks in other packages. However this means that pure-CMake packages
+    which don't depend on ament libraries and do not set environment hooks
+    of their own aren't found by dependents which are also pure cmake.
+    An example of this is fastrtps and fastcdr, both of which are
+    third-party cmake packages which do not register environment hooks.
+    This bug was previously masked for fastrtps and fastcdr but a
+    mis-applied dependency on ament_cmake rather than cmake in fastrtps.
+  * Rename hook shell script.
+    Since we'll be modifying this to include an additional library path the
+    name needs an update.
+  * Contributors: Steven! Ragnarök
+
+ -- Michael Jeronimo <michael.jeronimo@openrobotics.org>  Mon, 18 Jun 2018 00:00:00 -0000
+
+ros-rolling-ros-workspace (0.5.0-4noble) noble; urgency=high
+
+  * Merge pull request #5 <https://github.com/ros2/ros_workspace/issues/5> from ros2/ament-package-dependency
+    Add direct build dependency on ament_package.
+  * Add direct build dependency on ament_package.
+    This dependency was previously implied by the dependency on
+    ament_cmake_core. Since we directly use environment script templates
+    from ament_package let's make that direct dependency explicit.
+  * Merge pull request #4 <https://github.com/ros2/ros_workspace/issues/4> from nuclearsandwich/fetch-python-version
+    Collect python version to use in pythonpath hook.
+  * Collect python version to use in pythonpath hook.
+    Initially this was hardcoded. Since the python minor version depends on
+    the target platform this will fetch it from the available python3
+    binary.
+  * Merge pull request #2 <https://github.com/ros2/ros_workspace/issues/2> from nuclearsandwich/cleaner-environment-hooks
+    Install gnuinstalldirs library hook as a generic environment hook.
+  * Install gnuinstalldirs library hook as a generic environment hook.
+  * Contributors: Steven! Ragnarök
+
+ -- Michael Jeronimo <michael.jeronimo@openrobotics.org>  Wed, 13 Jun 2018 00:00:00 -0000
+
+ros-rolling-ros-workspace (0.4.0-4noble) noble; urgency=high
+
+  * Fix trailing whitespace bug and drop unneeded export.
+  * Add an environment hook to use the platform triplet in library_path.
+  * Add really hacky support for gnuinstalldirs.
+  * Bump to 0.0.3 for beta 3.
+  * Fix the python path bug but only for real.
+  * Explicitly set python installation path for the template.
+  * Bump to 0.0.2 for consistency.
+  * Set the root pythonpath.
+    Python packages (at the moment, specifically ament_package) are not
+    setting their ament_index resources, so nothing is in the PYTHONPATH for
+    those packages. This does some really quite awful things in order to set
+    a release-wide "default" python path. I have no doubt that this is
+    brittle and that better alternatives (including fixing python package
+    ament resources) should be implemented.
+  * workspace => ros_workspace
+  * Be an ament package in order to make sure package index exists.
+  * This might not be enough, but it might be just enough.
+  * Contributors: Steven! Ragnarök, Steven! Ragnarök
+
+ -- Michael Jeronimo <michael.jeronimo@openrobotics.org>  Fri, 08 Dec 2017 00:00:00 -0000
+
+
